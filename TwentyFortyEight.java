@@ -13,24 +13,18 @@ public class TwentyFortyEight {
             } else {
                 if (input.contains("w")) {
                     g.pushUp();
-                    g.addNewNumber();
-                    g.printArray();
                 }
                 if (input.contains("a")) {
                     g.pushLeft();
-                    g.addNewNumber();
-                    g.printArray();
                 }
                 if (input.contains("s")) {
                     g.pushDown();
-                    g.addNewNumber();
-                    g.printArray();
                 }
                 if (input.contains("d")) {
                     g.pushRight();
-                    g.addNewNumber();
-                    g.printArray();
                 }
+                g.addNewNumber();
+                g.printArray();
             }
         }
     }
