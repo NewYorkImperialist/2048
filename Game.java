@@ -5,14 +5,29 @@ public class Game {
     Random r = new Random();
 
     public Game() {
-
         gameBoard = new int[4][4];
     }
 
+    public String format(int n) {
+      return String.format("%6s", n > 0 ? "" + n : "");
+    }
+
     public void printArray() {
-        for (int[] x : gameBoard) {
-            System.out.printf("%6d%6d%6d%6d%n", x[0], x[1], x[2], x[3]);
+        System.out.println("╭――――――┬――――――┬――――――┬――――――╮");
+        for (int i = 0; i < gameBoard.length; i++) {
+            int[] x = gameBoard[i];
+            System.out.printf(
+                "│%s│%s│%s│%s│%n", 
+                format(x[0]),
+                format(x[1]), 
+                format(x[2]), 
+                format(x[3])
+            );
+            if (i < gameBoard.length - 1) {
+                System.out.println("├――――――┼――――――┼――――――┼――――――┤");
+            }
         }
+        System.out.println("╰――――――┴――――――┴――――――┴――――――╯");
         System.out.println();
     }
 
