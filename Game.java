@@ -59,7 +59,9 @@ public class Game {
     }
 
     public void pushUp(int[][] board) {
-        System.out.println("Pushing up...");
+        if(board==gameBoard){
+            System.out.println("Pushing up...");
+        }
         for (int y = 0; y < 4; y++) {
             boolean[] alreadyCombined = {false, false, false, false};
             for (int x = 1; x < 4; x++) {
@@ -95,7 +97,9 @@ public class Game {
     }
 
     public void pushDown(int[][] board) {
-        System.out.println("Pushing down...");
+        if(board==gameBoard){
+            System.out.println("Pushing down...");
+        }
         for (int y = 0; y < 4; y++) {
             boolean[] alreadyCombined = {false, false, false, false};
             for (int x = 2; x > -1; x--) {
@@ -131,7 +135,9 @@ public class Game {
     }
 
     public void pushLeft(int[][] board) {
-        System.out.println("Pushing left...");
+        if(board==gameBoard){
+            System.out.println("Pushing left...");
+        }
         for (int x = 0; x < 4; x++) {
             boolean[] alreadyCombined = {false, false, false, false};
             for (int y = 1; y < 4; y++) {
@@ -167,7 +173,9 @@ public class Game {
     }
 
     public void pushRight(int[][] board) {
-        System.out.println("Pushing right...");
+        if(board==gameBoard){
+            System.out.println("Pushing right...");
+        }
         for (int x = 0; x < 4; x++) {
             boolean[] alreadyCombined = {false, false, false, false};
             for (int y = 2; y > -1; y--) {
@@ -258,7 +266,7 @@ public class Game {
         }
         return false;
     }
-    
+
     public void clearBoard(){
         gameBoard = new int[4][4];
     }
