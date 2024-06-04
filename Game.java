@@ -13,15 +13,17 @@ public class Game {
     }
 
     public void printArray() {
+        //System.out.print("\033[H\033[2J");
+        System.out.flush();
         System.out.println("╭――――――┬――――――┬――――――┬――――――╮");
         for (int i = 0; i < gameBoard.length; i++) {
             int[] x = gameBoard[i];
             System.out.printf(
-                "│%s│%s│%s│%s│%n", 
-                format(x[0]),
-                format(x[1]), 
-                format(x[2]), 
-                format(x[3])
+                    "│%s│%s│%s│%s│%n",
+                    format(x[0]),
+                    format(x[1]),
+                    format(x[2]),
+                    format(x[3])
             );
             if (i < gameBoard.length - 1) {
                 System.out.println("├――――――┼――――――┼――――――┼――――――┤");
@@ -60,7 +62,7 @@ public class Game {
 
     public void pushUp(int[][] board) {
         if(board==gameBoard){
-            System.out.println("Pushing up...");
+            System.out.println("Pushing left...");
         }
         for (int y = 0; y < 4; y++) {
             boolean[] alreadyCombined = {false, false, false, false};
@@ -98,7 +100,7 @@ public class Game {
 
     public void pushDown(int[][] board) {
         if(board==gameBoard){
-            System.out.println("Pushing down...");
+            System.out.println("Pushing right...");
         }
         for (int y = 0; y < 4; y++) {
             boolean[] alreadyCombined = {false, false, false, false};
@@ -136,7 +138,7 @@ public class Game {
 
     public void pushLeft(int[][] board) {
         if(board==gameBoard){
-            System.out.println("Pushing left...");
+            System.out.println("Pushing up...");
         }
         for (int x = 0; x < 4; x++) {
             boolean[] alreadyCombined = {false, false, false, false};
@@ -174,7 +176,7 @@ public class Game {
 
     public void pushRight(int[][] board) {
         if(board==gameBoard){
-            System.out.println("Pushing right...");
+            System.out.println("Pushing down...");
         }
         for (int x = 0; x < 4; x++) {
             boolean[] alreadyCombined = {false, false, false, false};
@@ -251,6 +253,125 @@ public class Game {
             return false;
         }
     }
+    public boolean noUP(){
+
+        int count = 0;
+        int difference = 0;
+        int[][] testBoard = new int[4][4];
+        boolean different = true;
+        for(int[] x: gameBoard){
+            for(int y: x){
+                if(y!=0){
+                    count++;
+                }
+            }
+        }
+        if(count==16){
+
+            for(int i=0; i<gameBoard.length;i++){
+                for (int j=0;j<gameBoard[i].length;j++){
+                    testBoard[i][j] = gameBoard[i][j];
+                }
+
+            }
+            pushUp(testBoard);
+        }
+        for(int i=0; i<gameBoard.length;i++){
+            for (int j=0;j<gameBoard[i].length;j++){
+                if(gameBoard[i][j]==testBoard[i][j]){
+                    difference++;
+                } else{
+                    difference = difference;
+
+                }
+            }
+        }
+        if(difference==16){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean noDOWN(){
+
+        int count = 0;
+        int difference = 0;
+        int[][] testBoard = new int[4][4];
+        boolean different = true;
+        for(int[] x: gameBoard){
+            for(int y: x){
+                if(y!=0){
+                    count++;
+                }
+            }
+        }
+        if(count==16){
+
+            for(int i=0; i<gameBoard.length;i++){
+                for (int j=0;j<gameBoard[i].length;j++){
+                    testBoard[i][j] = gameBoard[i][j];
+                }
+
+            }
+            pushDown(testBoard);
+        }
+        for(int i=0; i<gameBoard.length;i++){
+            for (int j=0;j<gameBoard[i].length;j++){
+                if(gameBoard[i][j]==testBoard[i][j]){
+                    difference++;
+                } else{
+                    difference = difference;
+
+                }
+            }
+        }
+        if(difference==16){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean noLEFT(){
+
+        int count = 0;
+        int difference = 0;
+        int[][] testBoard = new int[4][4];
+        boolean different = true;
+        for(int[] x: gameBoard){
+            for(int y: x){
+                if(y!=0){
+                    count++;
+                }
+            }
+        }
+        if(count==16){
+
+            for(int i=0; i<gameBoard.length;i++){
+                for (int j=0;j<gameBoard[i].length;j++){
+                    testBoard[i][j] = gameBoard[i][j];
+                }
+
+            }
+            pushLeft(testBoard);
+        }
+        for(int i=0; i<gameBoard.length;i++){
+            for (int j=0;j<gameBoard[i].length;j++){
+                if(gameBoard[i][j]==testBoard[i][j]){
+                    difference++;
+                } else{
+                    difference = difference;
+
+                }
+            }
+        }
+        if(difference==16){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
 
     public int[][] getBoard(){
         return gameBoard;
@@ -266,6 +387,46 @@ public class Game {
         }
         return false;
     }
+    public boolean noRIGHT(){
+
+        int count = 0;
+        int difference = 0;
+        int[][] testBoard = new int[4][4];
+        boolean different = true;
+        for(int[] x: gameBoard){
+            for(int y: x){
+                if(y!=0){
+                    count++;
+                }
+            }
+        }
+        if(count==16){
+
+            for(int i=0; i<gameBoard.length;i++){
+                for (int j=0;j<gameBoard[i].length;j++){
+                    testBoard[i][j] = gameBoard[i][j];
+                }
+            }
+            pushRight(testBoard);
+        }
+        for(int i=0; i<gameBoard.length;i++){
+            for (int j=0;j<gameBoard[i].length;j++){
+                if(gameBoard[i][j]==testBoard[i][j]){
+                    difference++;
+                } else{
+                    difference = difference;
+
+                }
+            }
+        }
+        if(difference==16){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
 
     public void clearBoard(){
         gameBoard = new int[4][4];
