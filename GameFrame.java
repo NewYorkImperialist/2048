@@ -1,12 +1,29 @@
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.awt.Toolkit;
+import java.awt.Taskbar;
 
 public class GameFrame extends JFrame implements KeyListener {
     public static Game g = new Game();
     private JLabel[][] labels;
 
     public static void main(String[] args) {
+        try {
+            // Set system properties for macOS
+            System.setProperty("apple.awt.application.name", "2048");
+            System.setProperty("apple.awt.application.appearance", "system");
+            
+            // Set the dock icon before creating any windows
+            String iconPath = new File("2048 tiles/2048.png").getAbsolutePath();
+            if (Taskbar.isTaskbarSupported() && Taskbar.getTaskbar().isSupported(Taskbar.Feature.ICON_IMAGE)) {
+                Taskbar.getTaskbar().setIconImage(new ImageIcon(iconPath).getImage());
+            }
+        } catch (Exception e) {
+            System.out.println("Could not set dock icon: " + e.getMessage());
+        }
+        
         g.addNewNumber();
         g.addNewNumber();
         new GameFrame();
@@ -14,20 +31,38 @@ public class GameFrame extends JFrame implements KeyListener {
 
     GameFrame() {
         labels = new JLabel[4][4];
-        initializeUI();
+        try {
+            File iconFile = new File("2048 tiles/2048.png");
+            if (iconFile.exists()) {
+                Image img = Toolkit.getDefaultToolkit().getImage(iconFile.getAbsolutePath());
+                
+                // Create list of differently sized icons
+                java.util.List<Image> icons = new java.util.ArrayList<>();
+                icons.add(img.getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+                icons.add(img.getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+                icons.add(img.getScaledInstance(64, 64, Image.SCALE_SMOOTH));
+                icons.add(img.getScaledInstance(128, 128, Image.SCALE_SMOOTH));
+                
+                this.setIconImages(icons);
+                System.out.println("Icons loaded from: " + iconFile.getAbsolutePath());
+            } else {
+                System.out.println("Icon file not found at: " + iconFile.getAbsolutePath());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Could not load window icon: " + e.getMessage());
+        }
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(415, 435);
         this.setLayout(null);
         this.addKeyListener(this);
         this.setTitle("2048");
+        initializeUI();
         updateLabels();
         this.setVisible(true);
     }
 
     private void initializeUI() {
-        ImageIcon image2048 = new ImageIcon("/Users/jaydenlin/IdeaProjects/ComputerScienceA/src/2048 tiles/2048.png");
-        this.setIconImage(image2048.getImage());
-
         for (int i = 0; i < labels.length; i++) {
             for (int j = 0; j < labels[i].length; j++) {
                 labels[i][j] = new JLabel();
@@ -38,18 +73,18 @@ public class GameFrame extends JFrame implements KeyListener {
     }
 
     private void updateLabels() {
-        ImageIcon image2 = new ImageIcon("/Users/jaydenlin/IdeaProjects/ComputerScienceA/src/2048 tiles/2.png");
-        ImageIcon image4 = new ImageIcon("/Users/jaydenlin/IdeaProjects/ComputerScienceA/src/2048 tiles/4.png");
-        ImageIcon image8 = new ImageIcon("/Users/jaydenlin/IdeaProjects/ComputerScienceA/src/2048 tiles/8.png");
-        ImageIcon image16 = new ImageIcon("/Users/jaydenlin/IdeaProjects/ComputerScienceA/src/2048 tiles/16.png");
-        ImageIcon image32 = new ImageIcon("/Users/jaydenlin/IdeaProjects/ComputerScienceA/src/2048 tiles/32.png");
-        ImageIcon image64 = new ImageIcon("/Users/jaydenlin/IdeaProjects/ComputerScienceA/src/2048 tiles/64.png");
-        ImageIcon image128 = new ImageIcon("/Users/jaydenlin/IdeaProjects/ComputerScienceA/src/2048 tiles/128.png");
-        ImageIcon image256 = new ImageIcon("/Users/jaydenlin/IdeaProjects/ComputerScienceA/src/2048 tiles/256.png");
-        ImageIcon image512 = new ImageIcon("/Users/jaydenlin/IdeaProjects/ComputerScienceA/src/2048 tiles/512.png");
-        ImageIcon image1024 = new ImageIcon("/Users/jaydenlin/IdeaProjects/ComputerScienceA/src/2048 tiles/1024.png");
-        ImageIcon image2048 = new ImageIcon("/Users/jaydenlin/IdeaProjects/ComputerScienceA/src/2048 tiles/2048.png");
-        ImageIcon gameover = new ImageIcon("/Users/jaydenlin/IdeaProjects/ComputerScienceA/src/2048 tiles/gameover.png");
+        ImageIcon image2 = new ImageIcon(new File("2048 tiles/2.png").getAbsolutePath());
+        ImageIcon image4 = new ImageIcon(new File("2048 tiles/4.png").getAbsolutePath());
+        ImageIcon image8 = new ImageIcon(new File("2048 tiles/8.png").getAbsolutePath());
+        ImageIcon image16 = new ImageIcon(new File("2048 tiles/16.png").getAbsolutePath());
+        ImageIcon image32 = new ImageIcon(new File("2048 tiles/32.png").getAbsolutePath());
+        ImageIcon image64 = new ImageIcon(new File("2048 tiles/64.png").getAbsolutePath());
+        ImageIcon image128 = new ImageIcon(new File("2048 tiles/128.png").getAbsolutePath());
+        ImageIcon image256 = new ImageIcon(new File("2048 tiles/256.png").getAbsolutePath());
+        ImageIcon image512 = new ImageIcon(new File("2048 tiles/512.png").getAbsolutePath());
+        ImageIcon image1024 = new ImageIcon(new File("2048 tiles/1024.png").getAbsolutePath());
+        ImageIcon image2048 = new ImageIcon(new File("2048 tiles/2048.png").getAbsolutePath());
+        ImageIcon gameover = new ImageIcon(new File("2048 tiles/gameover.png").getAbsolutePath());
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
